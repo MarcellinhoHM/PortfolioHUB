@@ -295,6 +295,7 @@ section + section { border-top: 1px solid var(--border); }
 }
 .timeline strong { display: block; }
 .timeline span { color: var(--muted); font-size: .93rem; }
+.timeline + .actions { margin-top: 8px; }
 
 /* ---------- Slides embutidos ---------- */
 .slides-frame {
