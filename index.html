@@ -23,6 +23,9 @@
       <nav class="nav" id="nav">
         <a href="#sobre">Sobre</a>
         <a href="#projetos">Projetos</a>
+        <a href="#documentacao">Documentação</a>
+        <a href="#slides">Slides</a>
+        <a href="#versoes">Versões</a>
         <a href="#contato">Contato</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">☾</button>
       </nav>
@@ -138,6 +141,80 @@
       </div>
     </section>
 
+    <!-- Documentação -->
+    <section id="documentacao">
+      <div class="container reveal">
+        <h2 class="section-title">Documentação</h2>
+        <p class="section-sub">Guias escritos para este repositório: como ele é versionado, como colaborar, como o site é publicado e como ele se conecta ao LinkedIn.</p>
+
+        <div class="grid">
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">Guia</span><span class="tag">Git</span></div>
+            <h3>Git e Versionamento</h3>
+            <p>Fluxo local → remoto, comandos do dia a dia, Conventional Commits, branches, SemVer e tags.</p>
+            <div class="links"><a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/guia-git-e-versionamento.md" target="_blank" rel="noopener">Ler guia →</a></div>
+          </article>
+
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">Guia</span><span class="tag">GitHub</span></div>
+            <h3>Colaboração</h3>
+            <p>Issues, Pull Requests com modelo, checklist de revisão de código e resolução de conflitos.</p>
+            <div class="links"><a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/guia-colaboracao.md" target="_blank" rel="noopener">Ler guia →</a></div>
+          </article>
+
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">Guia</span><span class="tag">Pages</span></div>
+            <h3>GitHub Pages</h3>
+            <p>Como este site é publicado a partir da branch main e como atualizá-lo e testá-lo localmente.</p>
+            <div class="links"><a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/guia-github-pages.md" target="_blank" rel="noopener">Ler guia →</a></div>
+          </article>
+
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">Guia</span><span class="tag">LinkedIn</span></div>
+            <h3>Integração com o LinkedIn</h3>
+            <p>Links de compartilhamento, passo a passo para adicionar os projetos ao perfil e textos prontos.</p>
+            <div class="links"><a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/integracao-linkedin.md" target="_blank" rel="noopener">Ler guia →</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slides -->
+    <section id="slides">
+      <div class="container reveal">
+        <h2 class="section-title">Slides</h2>
+        <p class="section-sub">A apresentação do repositório. Use as setas do teclado ou os botões para navegar.</p>
+        <iframe class="slides-frame" src="documentacao/slides/index.html" title="Slides do PortfolioHUB" loading="lazy"></iframe>
+        <div class="actions" style="margin-top:16px;">
+          <a class="btn" href="documentacao/slides/index.html" target="_blank" rel="noopener">Abrir em tela cheia →</a>
+          <a class="btn" href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/roteiro-apresentacao.md" target="_blank" rel="noopener">Roteiro da apresentação →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Versões -->
+    <section id="versoes">
+      <div class="container reveal">
+        <h2 class="section-title">Versões</h2>
+        <p class="section-sub">O repositório segue versionamento semântico. Cada versão tem tag e Release no GitHub.</p>
+        <ul class="timeline">
+          <li>
+            <strong>v1.1.0 — Documentação, slides e LinkedIn</strong>
+            <span>Projeto do bootcamp, guias de Git, colaboração e GitHub Pages, slides, integração com LinkedIn e README completo.</span>
+          </li>
+          <li>
+            <strong>v1.0.0 — Primeira versão</strong>
+            <span>Estrutura de diretórios e primeira versão deste site no GitHub Pages.</span>
+          </li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="https://github.com/MarcellinhoHM/PortfolioHUB/releases" target="_blank" rel="noopener">Ver Releases →</a>
+          <a class="btn" href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG →</a>
+          <a class="btn" href="https://github.com/MarcellinhoHM/PortfolioHUB/commits/main" target="_blank" rel="noopener">Histórico de commits →</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Contato -->
     <section id="contato">
       <div class="container reveal">
@@ -161,7 +238,7 @@
   <footer class="site-footer">
     <div class="container">
       <span>© <span id="year">2026</span> Marcello Augusto Hesketh Montella</span>
-      <span>PortfolioHUB v1.0.0</span>
+      <span>PortfolioHUB v1.1.0 · <a href="https://github.com/MarcellinhoHM/PortfolioHUB" target="_blank" rel="noopener">código-fonte</a></span>
     </div>
   </footer>
 

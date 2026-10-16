@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PortfolioHUB — Slides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #12111a;
+      --surface: #1b1a26;
+      --border: #2e2c40;
+      --text: #ecebf5;
+      --muted: #a9a7bf;
+      --accent: #c77ddb;
+      --accent-2: #ff6fae;
+      --green: #4ade80;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: #0b0a10; color: var(--text); font-family: "Inter", system-ui, sans-serif; overflow: hidden; }
+
+    .viewport { position: fixed; inset: 0; }
+    .stage {
+      width: 1280px; height: 720px;
+      position: absolute;
+      left: 50%; top: calc(50% - 24px);
+      transform: translate(-50%, -50%);
+      transform-origin: center center;
+      background: var(--bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+    .stage::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+
+    .slide {
+      position: absolute; inset: 0;
+      padding: 72px 88px;
+      display: flex; flex-direction: column; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; }
+
+    .kicker { font-size: 18px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+    h1 { font-size: 76px; line-height: 1.05; margin: 0 0 24px; letter-spacing: -.02em; }
+    h2 { font-size: 50px; line-height: 1.1; margin: 0 0 36px; letter-spacing: -.01em; }
+    .grad { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    p.lead { font-size: 26px; color: var(--muted); margin: 0; max-width: 900px; line-height: 1.5; }
+
+    ul.points { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+    ul.points li { font-size: 26px; line-height: 1.4; padding-left: 34px; position: relative; color: var(--text); }
+    ul.points li::before { content: ""; position: absolute; left: 0; top: 13px; width: 14px; height: 14px; border-radius: 4px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+    ul.points li span { color: var(--muted); }
+
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 26px 30px; }
+    .box h3 { margin: 0 0 10px; font-size: 24px; color: var(--accent); }
+    .box p { margin: 0; font-size: 20px; color: var(--muted); line-height: 1.5; }
+
+    pre {
+      margin: 0; font-family: "JetBrains Mono", monospace; font-size: 20px; line-height: 1.55;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 26px 30px; color: var(--text);
+    }
+    pre .c { color: var(--muted); }
+    pre .y { color: #fbbf24; }
+    pre .g { color: var(--green); }
+    pre .p { color: var(--accent); }
+
+    .flow { display: flex; align-items: center; gap: 18px; margin-top: 10px; }
+    .flow .step { flex: 1; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px 12px; font-size: 20px; font-weight: 600; }
+    .flow .step small { display: block; font-weight: 400; color: var(--muted); font-size: 16px; margin-top: 6px; font-family: "JetBrains Mono", monospace; }
+    .flow .arrow { color: var(--accent); font-size: 28px; }
+
+    .links { display: grid; gap: 14px; font-size: 24px; font-family: "JetBrains Mono", monospace; }
+    .links span { color: var(--muted); font-family: "Inter", sans-serif; display: inline-block; width: 160px; }
+
+    .controls {
+      position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(27,26,38,.9); border: 1px solid var(--border); border-radius: 999px; padding: 6px 10px;
+      font-size: 14px; color: var(--muted); z-index: 5;
+    }
+    .controls button {
+      background: transparent; border: 0; color: var(--text); font-size: 18px; width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+    }
+    .controls button:hover { background: var(--border); }
+    .progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .3s ease; z-index: 5; }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <div class="viewport">
+    <div class="stage" id="stage">
+
+      <!-- 1. Capa -->
+      <section class="slide active">
+        <p class="kicker">Desafio — Entrega Intermediária</p>
+        <h1>Portfolio<span class="grad">HUB</span></h1>
+        <p class="lead">Repositório com versionamento: projetos acadêmicos, pessoais e documentação, publicados no GitHub Pages e integrados ao LinkedIn.</p>
+        <p class="lead" style="margin-top:40px; font-size:22px;">Marcello Augusto Hesketh Montella</p>
+      </section>
+
+      <!-- 2. Planejamento -->
+      <section class="slide">
+        <p class="kicker">1 · Planejamento</p>
+        <h2>Seções do repositório</h2>
+        <div class="cols">
+          <div class="box"><h3>Projetos acadêmicos</h3><p>Trabalhos de faculdade e do bootcamp, cada um com seu README.</p></div>
+          <div class="box"><h3>Projetos pessoais</h3><p>Projetos próprios de estudo e prática.</p></div>
+          <div class="box"><h3>Documentação</h3><p>Guias de Git, colaboração, GitHub Pages, LinkedIn e estes slides.</p></div>
+          <div class="box"><h3>Site (assets)</h3><p>HTML, CSS e JS da página publicada no GitHub Pages.</p></div>
+        </div>
+      </section>
+
+      <!-- 3. Estrutura -->
+      <section class="slide">
+        <p class="kicker">2 · Organização</p>
+        <h2>Estrutura de diretórios</h2>
+<pre><span class="p">PortfolioHUB/</span>
+├── index.html            <span class="c"># site (GitHub Pages)</span>
+├── assets/               <span class="c"># css · js · img</span>
+├── <span class="y">projetos-academicos/</span>
+│   └── bootcamp-claude-api/   <span class="c"># notebooks + README</span>
+├── <span class="y">projetos-pessoais/</span>
+├── <span class="y">documentacao/</span>          <span class="c"># guias + slides</span>
+├── .github/              <span class="c"># modelos de Issue e PR</span>
+├── CHANGELOG.md · CONTRIBUTING.md · LICENSE
+└── README.md</pre>
+      </section>
+
+      <!-- 4. Versionamento -->
+      <section class="slide">
+        <p class="kicker">3 · Versionamento</p>
+        <h2>Git do local ao GitHub</h2>
+        <div class="flow">
+          <div class="step">Working Directory<small>git add</small></div>
+          <div class="arrow">→</div>
+          <div class="step">Staging Area<small>git commit</small></div>
+          <div class="arrow">→</div>
+          <div class="step">Repositório local<small>git push</small></div>
+          <div class="arrow">⇄</div>
+          <div class="step">GitHub<small>git pull</small></div>
+        </div>
+        <ul class="points" style="margin-top:40px;">
+          <li>Conventional Commits <span>— feat, docs, fix, chore…</span></li>
+          <li>Branches de funcionalidade + Pull Requests <span>— PR #1 e PR #2</span></li>
+          <li>Versões semânticas com tags e Releases <span>— v1.0.0 → v1.1.0</span></li>
+        </ul>
+      </section>
+
+      <!-- 5. Projeto em destaque -->
+      <section class="slide">
+        <p class="kicker">4 · Projeto em destaque</p>
+        <h2>Bootcamp — API do Claude</h2>
+        <div class="cols">
+          <ul class="points">
+            <li>Requisições e histórico de chat</li>
+            <li>System prompt</li>
+            <li>Temperatura</li>
+            <li>Streaming e stop sequences</li>
+            <li>Tool use (ferramentas)</li>
+          </ul>
+<pre><span class="p">from</span> anthropic <span class="p">import</span> Anthropic
+
+client = Anthropic()
+msg = client.messages.create(
+  model=<span class="g">"claude-haiku-4-5"</span>,
+  max_tokens=<span class="y">1000</span>,
+  messages=messages,
+)</pre>
+        </div>
+      </section>
+
+      <!-- 6. GitHub Pages -->
+      <section class="slide">
+        <p class="kicker">5 · Publicação</p>
+        <h2>Site no GitHub Pages</h2>
+        <ul class="points">
+          <li>Publicado a partir da branch <span>main</span>, pasta raiz</li>
+          <li>Seções: Sobre, Projetos, Documentação, Slides, Versões e Contato</li>
+          <li>Responsivo, com tema claro e escuro</li>
+          <li>Cada merge na main atualiza o site automaticamente</li>
+        </ul>
+        <p class="lead" style="margin-top:36px; font-family:'JetBrains Mono',monospace; font-size:24px; color:var(--accent);">marcellinhohm.github.io/PortfolioHUB</p>
+      </section>
+
+      <!-- 7. LinkedIn -->
+      <section class="slide">
+        <p class="kicker">6 · Integração</p>
+        <h2>LinkedIn ⇄ GitHub</h2>
+        <div class="cols">
+          <div class="box"><h3>No repositório</h3><p>Badge do LinkedIn no README, botões no site e um guia com os links de compartilhamento.</p></div>
+          <div class="box"><h3>No LinkedIn</h3><p>Projeto na seção "Projetos", link do site em "Em destaque", GitHub nas informações de contato e post de divulgação.</p></div>
+        </div>
+      </section>
+
+      <!-- 8. Encerramento -->
+      <section class="slide">
+        <p class="kicker">Obrigado!</p>
+        <h2>Links</h2>
+        <div class="links">
+          <div><span>Repositório</span>github.com/MarcellinhoHM/PortfolioHUB</div>
+          <div><span>Site</span>marcellinhohm.github.io/PortfolioHUB</div>
+          <div><span>LinkedIn</span>in/marcello-augusto-hesketh-montella-042a66370</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="prev" aria-label="Slide anterior">‹</button>
+    <span id="counter">1 / 8</span>
+    <button id="next" aria-label="Próximo slide">›</button>
+    <button id="fs" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
+  </div>
+
+  <script>
+    (function () {
+      const stage = document.getElementById("stage");
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const counter = document.getElementById("counter");
+      const progress = document.getElementById("progress");
+      let i = 0;
+
+      const fromHash = parseInt(location.hash.replace("#", ""), 10);
+      if (fromHash >= 1 && fromHash <= slides.length) i = fromHash - 1;
+
+      function fit() {
+        const s = Math.min(window.innerWidth / 1280, (window.innerHeight - 56) / 720);
+        stage.style.transform = "translate(-50%, -50%) scale(" + Math.max(s, 0.1) + ")";
+      }
+
+      function show(n) {
+        i = Math.max(0, Math.min(slides.length - 1, n));
+        slides.forEach((el, k) => el.classList.toggle("active", k === i));
+        counter.textContent = (i + 1) + " / " + slides.length;
+        progress.style.width = ((i + 1) / slides.length * 100) + "%";
+        history.replaceState(null, "", "#" + (i + 1));
+      }
+
+      document.getElementById("prev").onclick = () => show(i - 1);
+      document.getElementById("next").onclick = () => show(i + 1);
+      document.getElementById("fs").onclick = () => {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+        else document.exitFullscreen?.();
+      };
+
+      document.addEventListener("keydown", (e) => {
+        if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(i + 1); }
+        if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+        if (e.key === "Home") show(0);
+        if (e.key === "End") show(slides.length - 1);
+        if (e.key === "f" || e.key === "F") document.getElementById("fs").click();
+      });
+
+      let x0 = null;
+      document.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+      document.addEventListener("touchend", (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+        x0 = null;
+      });
+
+      window.addEventListener("resize", fit);
+      fit();
+      show(i);
+    })();
+  </script>
+</body>
+</html>
