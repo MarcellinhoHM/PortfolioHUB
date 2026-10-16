@@ -1,0 +1,324 @@
+/* =========================================================
+   PortfolioHUB — estilos do site (GitHub Pages)
+   ========================================================= */
+
+:root {
+  --bg: #f7f7fb;
+  --surface: #ffffff;
+  --surface-2: #f0eff7;
+  --text: #1c1b29;
+  --muted: #5d5b72;
+  --border: #e2e0ee;
+  --accent: #7b2d8e;
+  --accent-2: #d63384;
+  --accent-soft: #f3e6f7;
+  --shadow: 0 1px 2px rgba(20, 16, 40, .06), 0 8px 24px rgba(20, 16, 40, .06);
+  --radius: 14px;
+  --max: 1080px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12111a;
+    --surface: #1b1a26;
+    --surface-2: #232232;
+    --text: #ecebf5;
+    --muted: #a9a7bf;
+    --border: #2e2c40;
+    --accent: #c77ddb;
+    --accent-2: #ff6fae;
+    --accent-soft: #2c1f36;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #12111a;
+  --surface: #1b1a26;
+  --surface-2: #232232;
+  --text: #ecebf5;
+  --muted: #a9a7bf;
+  --border: #2e2c40;
+  --accent: #c77ddb;
+  --accent-2: #ff6fae;
+  --accent-soft: #2c1f36;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; display: block; }
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- Cabeçalho ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  gap: 16px;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text);
+  letter-spacing: -.01em;
+}
+.brand span { color: var(--accent); font-style: italic; }
+.brand:hover { text-decoration: none; }
+
+.nav { display: flex; align-items: center; gap: 4px; }
+.nav a {
+  color: var(--muted);
+  font-size: .92rem;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.nav a:hover { color: var(--text); background: var(--surface-2); text-decoration: none; }
+
+.theme-toggle {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 6px;
+}
+
+.menu-toggle { display: none; }
+
+@media (max-width: 760px) {
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+  .nav {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 16px 16px;
+    display: none;
+  }
+  .nav.open { display: flex; }
+  .theme-toggle { margin: 8px 0 0; width: 100%; }
+}
+
+/* ---------- Hero ---------- */
+.hero { padding: 88px 0 64px; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  margin: 0 0 16px;
+  letter-spacing: -.02em;
+}
+.hero h1 .grad {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p.lead {
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 640px;
+  margin: 0 0 28px;
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: .95rem;
+  padding: 11px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover { text-decoration: none; transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn.primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+  color: #fff;
+}
+.btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* ---------- Seções ---------- */
+section { padding: 56px 0; }
+section + section { border-top: 1px solid var(--border); }
+
+.section-title { font-size: 1.7rem; margin: 0 0 6px; letter-spacing: -.01em; }
+.section-sub { color: var(--muted); margin: 0 0 28px; max-width: 680px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card h3 { margin: 0; font-size: 1.1rem; }
+.card p { margin: 0; color: var(--muted); font-size: .95rem; flex: 1; }
+.card .links { display: flex; flex-wrap: wrap; gap: 14px; font-size: .9rem; font-weight: 600; }
+
+.card.featured {
+  grid-column: 1 / -1;
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  background:
+    linear-gradient(135deg, var(--accent-soft), transparent 60%),
+    var(--surface);
+}
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: .75rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.tag.cat { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
+
+.about-grid p { margin: 0 0 14px; }
+
+.facts {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.facts li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--border); font-size: .95rem; }
+.facts li:last-child { border-bottom: 0; }
+.facts span:first-child { color: var(--muted); }
+
+/* ---------- Linha do tempo de versões ---------- */
+.timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--border); }
+.timeline li { position: relative; padding: 0 0 22px 22px; }
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+.timeline strong { display: block; }
+.timeline span { color: var(--muted); font-size: .93rem; }
+
+/* ---------- Slides embutidos ---------- */
+.slides-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--surface);
+}
+
+/* ---------- Rodapé ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
+.site-footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
