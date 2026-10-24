@@ -1,0 +1,19 @@
+# Categorias das notas de Release geradas automaticamente (gh release create --generate-notes)
+changelog:
+  exclude:
+    labels: [ignorar-no-changelog]
+  categories:
+    - title: Implantação
+      labels: [implantação]
+    - title: Segurança
+      labels: [segurança]
+    - title: CI/CD
+      labels: [ci-cd]
+    - title: Colaboração
+      labels: [colaboração]
+    - title: Documentação
+      labels: [documentation]
+    - title: Dependências
+      labels: [dependências]
+    - title: Outras mudanças
+      labels: ["*"]

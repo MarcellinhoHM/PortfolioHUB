@@ -3,6 +3,10 @@ name: Publicar no GitHub Pages
 on:
   push:
     branches: [main]
+  # Ao publicar uma Release, republica para o site mostrar a nova versão em produção
+  # (o ambiente github-pages aceita as tags v*, protegidas pela ruleset "Tags de versão")
+  release:
+    types: [published]
   # Republica todo dia para atualizar os dados do GitHub exibidos no site
   schedule:
     - cron: "17 9 * * *"
