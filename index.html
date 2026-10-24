@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://avatars.githubusercontent.com https://github.com; connect-src 'self' https://api.github.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://avatars.githubusercontent.com https://github.com; connect-src 'self' https://api.github.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>PortfolioHUB | Marcello Montella</title>
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <meta name="description" content="Portfólio de Marcello Augusto Hesketh Montella: projetos acadêmicos, projetos pessoais e documentação, versionados com Git e publicados no GitHub Pages.">
   <meta property="og:title" content="PortfolioHUB | Marcello Montella">
-  <meta property="og:description" content="Projetos acadêmicos, pessoais e documentação versionados com Git.">
+  <meta property="og:description" content="Portfólio com projetos em Python, Java, C e JavaScript, publicado com CI/CD, testes automatizados e segurança de produção.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://marcellinhohm.github.io/PortfolioHUB/">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <meta property="og:image" content="https://marcellinhohm.github.io/PortfolioHUB/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PortfolioHUB — portfólio de Marcello Montella">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/css/fonts.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -22,7 +25,7 @@
   <header class="site-header">
     <div class="container">
       <a class="brand" href="#inicio">Portfolio<span>HUB</span></a>
-      <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">☰</button>
+      <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-controls="nav" aria-expanded="false">☰</button>
       <nav class="nav" id="nav">
         <a href="#sobre">Sobre</a>
         <a href="#projetos">Projetos</a>
@@ -44,8 +47,9 @@
         <span class="eyebrow">Portfólio · Desenvolvimento</span>
         <h1>Olá, eu sou <span class="grad">Marcello Montella</span>.</h1>
         <p class="lead">
-          Estudante de Ciência da Computação. Aqui reúno meus projetos acadêmicos e pessoais,
-          organizados e versionados com Git.
+          Estudante de Ciência da Computação no Centro Universitário de Brasília (CEUB).
+          Construo projetos com Python, Java, C e JavaScript e levo práticas de produção
+          (testes, CI/CD e segurança) até para projetos pessoais.
         </p>
         <div class="actions">
           <a class="btn primary" href="https://github.com/MarcellinhoHM/PortfolioHUB" target="_blank" rel="noopener">
@@ -77,8 +81,10 @@
         </div>
         <ul class="facts">
           <li><span>GitHub</span><a href="https://github.com/MarcellinhoHM" target="_blank" rel="noopener">@MarcellinhoHM</a></li>
-          <li><span>Linguagens</span><span>C · Java · JS · Python</span></li>
-          <li><span>Ferramentas</span><span>Git · GitHub · VS Code</span></li>
+          <li><span>Linguagens</span><span>Python · JavaScript · Java · C · HTML/CSS</span></li>
+          <li><span>Práticas</span><span>Testes · CI/CD · PRs · SemVer</span></li>
+          <li><span>Segurança</span><span>CSP · secret scanning · CodeQL</span></li>
+          <li><span>IA</span><span>API do Claude (Anthropic)</span></li>
         </ul>
       </div>
     </section>
@@ -91,7 +97,22 @@
 
         <div class="grid">
           <article class="card featured">
-            <div class="tag-row"><span class="tag cat">Acadêmico · Destaque</span><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">API de IA</span></div>
+            <div class="tag-row"><span class="tag cat">Destaque · DevSecOps</span><span class="tag">GitHub Actions</span><span class="tag">JavaScript</span><span class="tag">Python</span></div>
+            <h3>PortfolioHUB — site estático com CI/CD e segurança de produção</h3>
+            <p>
+              Este site. Publicação automática no GitHub Pages só depois dos testes (testes em Python, validação de HTML
+              e varredura de segredos), branch main protegida por rulesets, Content Security Policy sem
+              <code>unsafe-inline</code>, Dependabot e CodeQL. Os dados do GitHub são gerados no build, com a API ao vivo como reserva.
+            </p>
+            <div class="links">
+              <a href="https://github.com/MarcellinhoHM/PortfolioHUB" target="_blank" rel="noopener">Código →</a>
+              <a href="https://github.com/MarcellinhoHM/PortfolioHUB/actions" target="_blank" rel="noopener">Pipelines →</a>
+              <a href="#implantacao">Como foi implantado →</a>
+            </div>
+          </article>
+
+          <article class="card featured">
+            <div class="tag-row"><span class="tag cat">Acadêmico · Destaque</span><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">Claude (Anthropic)</span></div>
             <h3>Bootcamp — Integração com a API do Claude</h3>
             <p>
               Série de notebooks sobre como integrar um modelo de linguagem em aplicações Python:
@@ -150,8 +171,8 @@
       <div class="container reveal">
         <h2 class="section-title">Repositórios no GitHub</h2>
         <p class="section-sub">
-          Lista carregada ao vivo da API pública do GitHub: todo repositório público que eu criar aparece aqui
-          automaticamente, com linguagem, estrelas e data da última atualização.
+          Lista atualizada automaticamente a partir do GitHub: todo repositório público próprio (sem forks)
+          aparece aqui, com linguagem, estrelas e data da última atualização.
         </p>
         <div class="repo-toolbar">
           <label for="repo-filtro" class="sr-only">Filtrar repositórios</label>
@@ -201,9 +222,9 @@
           <div>
             <h3>Equipe e permissões</h3>
             <p class="muted">
-              Contribuidores vêm da API do GitHub. O mantenedor tem papel <strong>Admin</strong>; colaboradores entram por convite
-              com o menor papel necessário (<strong>Triage</strong> ou <strong>Write</strong>) e toda mudança na <code>main</code> passa por
-              Pull Request com testes aprovados e revisão do responsável definido em <code>CODEOWNERS</code>.
+              Contribuidores vêm da API do GitHub. Hoje o projeto tem um mantenedor (<strong>Admin</strong>); contribuições
+              externas entram por fork e Pull Request. Toda mudança na <code>main</code>, inclusive do mantenedor, passa por
+              Pull Request com os testes obrigatórios aprovados; ninguém faz push direto.
             </p>
           </div>
           <ul class="team-list" id="equipe"></ul>
@@ -355,8 +376,11 @@
         </div>
         <p class="privacy muted small">
           <strong>Privacidade:</strong> este site não usa cookies nem coleta dados pessoais. O navegador guarda só a sua
-          escolha de tema e um cache de 10 minutos dos dados públicos do GitHub. Ao abrir a página, seu navegador
-          acessa o GitHub (dados dos repositórios) e o Google Fonts (fontes).
+          escolha de tema e um cache de 10 minutos dos dados públicos do GitHub. O site é hospedado no GitHub Pages e
+          pode consultar a API pública do GitHub; o GitHub pode registrar dados técnicos de acesso (como o endereço IP),
+          conforme a
+          <a href="https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Declaração de Privacidade do GitHub</a>.
+          As fontes são servidas pelo próprio site.
         </p>
       </div>
     </section>

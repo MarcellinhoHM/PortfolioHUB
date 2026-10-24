@@ -2,6 +2,9 @@
 
 (function () {
   const root = document.documentElement;
+  // Marca que o JavaScript está ativo: só então as seções começam ocultas para a animação.
+  // Sem JavaScript, todo o conteúdo fica visível.
+  root.classList.add("js");
 
   // Tema claro/escuro (lembra a escolha do visitante)
   const themeBtn = document.getElementById("theme-toggle");
@@ -34,10 +37,13 @@
   const menuBtn = document.getElementById("menu-toggle");
   const nav = document.getElementById("nav");
   if (menuBtn && nav) {
-    menuBtn.addEventListener("click", () => nav.classList.toggle("open"));
-    nav.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => nav.classList.remove("open"))
-    );
+    const definirMenu = (aberto) => {
+      nav.classList.toggle("open", aberto);
+      menuBtn.setAttribute("aria-expanded", String(aberto));
+      menuBtn.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+    };
+    menuBtn.addEventListener("click", () => definirMenu(!nav.classList.contains("open")));
+    nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => definirMenu(false)));
   }
 
   // Animação de entrada das seções

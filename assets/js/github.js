@@ -91,7 +91,7 @@
   function cardRepo(r) {
     const card = el("article", "card");
     const tags = el("div", "tag-row");
-    tags.append(el("span", "tag cat", r.fork ? "Fork" : "Repositório"));
+    tags.append(el("span", "tag cat", "Repositório"));
     if (r.topics) r.topics.slice(0, 3).forEach((t) => tags.append(el("span", "tag", t)));
     card.append(tags, el("h3", null, r.name), el("p", null, r.description || "Sem descrição."));
 
@@ -130,7 +130,8 @@
     if (!lista) return;
     try {
       const dados = await doBuildOuApi("repos", "/users/" + USUARIO + "/repos?per_page=100&sort=pushed");
-      repos = dados.filter((r) => !r.archived);
+      // Só repositórios próprios e ativos: forks e arquivados diluiriam a seleção
+      repos = dados.filter((r) => !r.fork && !r.archived);
       renderizar();
       filtro.addEventListener("input", renderizar);
     } catch (e) {

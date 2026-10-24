@@ -112,6 +112,15 @@ class TestSeguranca(unittest.TestCase):
                 self.assertEqual(p.estilos_inline, 0, "bloco <style> inline")
                 self.assertEqual(p.atributos_style, 0, "atributo style=")
 
+    def test_sem_estilos_externos(self):
+        # Estilos e fontes servidos pelo próprio site (privacidade e CSP 'self')
+        for pagina in PAGINAS:
+            with self.subTest(pagina=pagina.relative_to(RAIZ)):
+                externos = [v for tag, attr, v in analisar(pagina).links
+                            if tag == "link" and attr == "href" and v.startswith(("http://", "https://", "//"))
+                            and not v.endswith((".png", ".svg"))]
+                self.assertEqual(externos, [])
+
     def test_links_externos_com_noopener(self):
         for pagina in PAGINAS:
             with self.subTest(pagina=pagina.relative_to(RAIZ)):
