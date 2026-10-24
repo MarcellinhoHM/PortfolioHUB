@@ -1,7 +1,10 @@
 // PortfolioHUB — integração com o GitHub
 // Lista os repositórios, a versão em produção, o último commit e a equipe.
-// Fonte principal: assets/data/github.json, gerado pelo GitHub Actions a cada publicação
-// (scripts/gerar_dados_github.py). Se faltar algum dado, usa a API pública ao vivo.
+// Fonte principal: API pública do GitHub, ao vivo e com cache de 10 minutos na sessão.
+// Reserva: assets/data/github.json, gerado pelo GitHub Actions na publicação
+// (scripts/gerar_dados_github.py), usado se a API falhar ou atingir o limite.
+// O JSON não é a fonte principal porque o GitHub Pages não republica um mesmo commit:
+// uma Release nova sem commit novo deixaria o arquivo desatualizado.
 // Segurança: os dados são inseridos só com textContent (nunca innerHTML)
 // e todo link é validado antes de ir para o atributo href.
 
@@ -12,15 +15,25 @@
   const DADOS_BUILD = "assets/data/github.json";
   const CACHE_MIN = 10;
 
-  // Carrega uma vez o JSON gerado no build; null se não existir (ex.: rodando localmente)
-  const dadosBuild = fetch(DADOS_BUILD, { cache: "no-cache" })
-    .then((r) => (r.ok ? r.json() : null))
-    .catch(() => null);
+  // JSON gerado no build, carregado só se a API falhar; null se não existir (ex.: localmente)
+  let dadosBuild = null;
+  function carregarBuild() {
+    if (!dadosBuild) {
+      dadosBuild = fetch(DADOS_BUILD, { cache: "no-cache" })
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null);
+    }
+    return dadosBuild;
+  }
 
-  async function doBuildOuApi(campo, caminho) {
-    const build = await dadosBuild;
-    if (build && build[campo]) return build[campo];
-    return buscar(caminho);
+  async function daApiOuBuild(caminho, campo) {
+    try {
+      return await buscar(caminho);
+    } catch (erro) {
+      const build = await carregarBuild();
+      if (build && build[campo]) return build[campo];
+      throw erro;
+    }
   }
 
   const CORES = {
@@ -129,7 +142,7 @@
   async function carregarRepos() {
     if (!lista) return;
     try {
-      const dados = await doBuildOuApi("repos", "/users/" + USUARIO + "/repos?per_page=100&sort=pushed");
+      const dados = await daApiOuBuild("/users/" + USUARIO + "/repos?per_page=100&sort=pushed", "repos");
       // Só repositórios próprios e ativos: forks e arquivados diluiriam a seleção
       repos = dados.filter((r) => !r.fork && !r.archived);
       renderizar();
@@ -148,18 +161,21 @@
     const rel = document.getElementById("st-release");
     if (!rel) return;
     try {
-      const r = await doBuildOuApi("release", "/repos/" + REPO + "/releases/latest");
+      const r = await daApiOuBuild("/repos/" + REPO + "/releases/latest", "release");
       rel.textContent = r.tag_name;
       document.getElementById("st-release-data").textContent = "publicada em " + dataCurta(r.published_at);
     } catch (e) {
       rel.textContent = "indisponível";
     }
     try {
-      const build = await dadosBuild;
-      let c = build && build.commit;
-      if (!c) {
+      let c;
+      try {
         const commits = await buscar("/repos/" + REPO + "/commits?per_page=1");
         c = { sha: commits[0].sha, message: commits[0].commit.message, date: commits[0].commit.committer.date };
+      } catch (erro) {
+        const build = await carregarBuild();
+        if (!build || !build.commit) throw erro;
+        c = build.commit;
       }
       document.getElementById("st-commit").textContent = c.sha.slice(0, 7);
       document.getElementById("st-commit-data").textContent =
@@ -173,7 +189,7 @@
     const ul = document.getElementById("equipe");
     if (!ul) return;
     try {
-      const pessoas = await doBuildOuApi("contribuidores", "/repos/" + REPO + "/contributors?per_page=20");
+      const pessoas = await daApiOuBuild("/repos/" + REPO + "/contributors?per_page=20", "contribuidores");
       ul.replaceChildren(...pessoas.filter((p) => p.type === "User").map((p) => {
         const li = el("li");
         const img = el("img");

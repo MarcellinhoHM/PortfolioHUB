@@ -4,7 +4,17 @@ Todas as mudanças relevantes deste repositório são registradas aqui.
 
 O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e o projeto usa [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
-## [2.0.0] — 2026-10-25
+## [2.0.1] — 2026-10-24
+
+### Corrigido
+
+- A seção Implantação continuava mostrando a v1.1.0 depois da Release v2.0.0. Causa: o site lia primeiro o JSON gerado no build, e a publicação disparada pela Release rodou com o mesmo commit; o GitHub Pages mantém o conteúdo de um commit já publicado. Agora o site lê os dados **ao vivo na API do GitHub** (com cache de 10 minutos) e usa o JSON do build só como reserva.
+
+### Removido
+
+- Gatilho `release: published` do workflow de publicação, que não tinha efeito. A execução diária continua, como verificação (testes e teste de fumaça em produção).
+
+## [2.0.0] — 2026-10-24
 
 Versão de produção (Entrega Final: implantação). Marcada como *major* porque muda a forma de publicar o site e passa a exigir Pull Request com checks para qualquer mudança na `main`.
 
@@ -14,14 +24,13 @@ Versão de produção (Entrega Final: implantação). Marcada como *major* porqu
 - **Documentação da implantação** (`documentacao/implantacao/`): plano, IA como guia, ambiente GitHub, gestão de usuários, política de segurança, compartilhamento e colaboração, testes e lançamento, roteiro e resumo.
 - **CI** (`.github/workflows/ci.yml`): testes do site e varredura de segredos (gitleaks) em todo PR.
 - **Publicação via GitHub Actions** (`.github/workflows/deploy-pages.yml`) no ambiente `github-pages`, só depois dos testes, com republicação diária.
-- **Integração com o GitHub no site**: seções Repositórios (lista ao vivo com filtro) e Implantação (versão em produção, último commit, status dos workflows, equipe). Dados gerados no build por `scripts/gerar_dados_github.py`, com a API pública como reserva.
+- **Integração com o GitHub no site**: seções Repositórios (lista ao vivo com filtro) e Implantação (versão em produção, último commit, status dos workflows, equipe). Dados ao vivo da API do GitHub, com uma cópia gerada no build por `scripts/gerar_dados_github.py` como reserva (ver 2.0.1).
 - **Testes automatizados** (`tests/test_site.py`): CSP, scripts e estilos inline, `noopener`, uso de `innerHTML`/`eval`, padrões de chaves, `.env`, links internos, âncoras, estrutura, JSON e versão.
 - `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `.github/dependabot.yml`.
 - Página 404, favicon, sitemap, imagem de prévia (`og:image`) e aviso de privacidade.
 - Slides da apresentação da implantação (`documentacao/slides/implantacao/`).
 - Card do próprio PortfolioHUB como projeto em destaque e competências por área.
 - Notas de Release por categoria (`.github/release.yml`).
-- Republicação automática do site ao publicar uma Release.
 
 ### Alterado
 
@@ -62,6 +71,7 @@ Versão de produção (Entrega Final: implantação). Marcada como *major* porqu
 - Tema claro/escuro, layout responsivo e menu mobile.
 - `.gitignore` (inclui `.env`) e licença MIT.
 
+[2.0.1]: https://github.com/MarcellinhoHM/PortfolioHUB/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/MarcellinhoHM/PortfolioHUB/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/MarcellinhoHM/PortfolioHUB/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/MarcellinhoHM/PortfolioHUB/releases/tag/v1.0.0

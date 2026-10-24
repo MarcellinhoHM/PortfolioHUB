@@ -132,11 +132,12 @@ Qualquer item vermelho é No-Go: corrigir ou registrar a exceção com justifica
 - [x] PR da implantação aberto, fechando as issues das fases concluídas
 - [x] CI verde no PR
 - [x] Revisão final com o guia ([transcrição](../../ferramentas/guia-implantacao-claude/transcricoes/revisao.md))
-- [ ] Merge do PR (mantenedor, com bypass registrado)
-- [ ] Publicação verde, com o teste de fumaça
-- [ ] `git tag -a v2.0.0 -m "v2.0.0 — Implantação em produção" && git push origin v2.0.0`
-- [ ] `gh release create v2.0.0 --verify-tag --title "v2.0.0 — Implantação em produção"`
-- [ ] Rodapé e painel "Versão em produção" mostrando `v2.0.0`
+- [x] Merge do PR #9 (mantenedor, com bypass registrado e checks verdes)
+- [x] Publicação verde, com o teste de fumaça
+- [x] `git tag -a v2.0.0 -m "v2.0.0 — Implantação em produção" && git push origin v2.0.0`
+- [x] `gh release create v2.0.0 --verify-tag --title "v2.0.0 — Implantação em produção"`
+- [x] Rodapé mostrando `v2.0.0`
+- [ ] Painel "Versão em produção" mostrando `v2.0.0` → **falhou**; corrigido na v2.0.1 (ver abaixo)
 
 ### Depois do lançamento
 
@@ -156,6 +157,9 @@ Qualquer item vermelho é No-Go: corrigir ou registrar a exceção com justifica
 
 ## 6. Registro de execução
 
+> **Problema encontrado no lançamento:** depois da Release v2.0.0, o painel "Versão em produção" continuou mostrando a v1.1.0. O site lia primeiro o JSON gerado no build, e a publicação disparada pela Release rodou com o mesmo commit do merge; o GitHub Pages manteve o conteúdo já publicado para aquele commit (o arquivo seguiu com a data da publicação anterior por mais de 10 minutos). Correção na v2.0.1: dados ao vivo da API do GitHub, com o JSON como reserva, e remoção do gatilho de Release.
+
+
 | ID | Data | Ambiente | Resultado | Evidência |
 |---|---|---|---|---|
 | T-01 a T-12 | 24/10/2026 | Local (Python 3.12) | ✅ 14 testes OK (13 na primeira execução; +1 após a revisão) | — |
@@ -164,7 +168,10 @@ Qualquer item vermelho é No-Go: corrigir ou registrar a exceção com justifica
 | T-14 | 24/10/2026 | Local (Node) | ✅ | — |
 | Push direto na `main` | 24/10/2026 | GitHub | ✅ Recusado (GH013) | Saída acima |
 | T-01 a T-15 | 24/10/2026 | CI no PR da implantação | Ver execução | [Actions → CI](https://github.com/MarcellinhoHM/PortfolioHUB/actions/workflows/ci.yml) |
-| T-16, T-17 | Após o merge | Publicação | Ver execução | [Actions → Publicar](https://github.com/MarcellinhoHM/PortfolioHUB/actions/workflows/deploy-pages.yml) |
+| T-16, T-17 | 24/10/2026 | Publicação após o merge do PR #9 | ✅ Testes, publicação e teste de fumaça (páginas 200, 404 personalizado, `github.json` 200) | [Execução 40118746308](https://github.com/MarcellinhoHM/PortfolioHUB/actions/runs/40118746308) |
+| T-15 (histórico completo) | 24/10/2026 | CI manual na `main` | ✅ gitleaks: 24 commits varridos, nenhum vazamento | [Execução 40118913581](https://github.com/MarcellinhoHM/PortfolioHUB/actions/runs/40118913581) |
+| Tag `v2.0.0` | 24/10/2026 | GitHub | ✅ Ruleset de tags ativa: "Bypassed rule violations… creations being restricted" (só o admin passa) | Saída do `git push` |
+| Painel mostra a versão nova | 24/10/2026 | Produção | ❌ Continuou em v1.1.0: a publicação da Release usou o mesmo commit e o Pages manteve o conteúdo anterior | Corrigido na v2.0.1 |
 | M-01 a M-05, M-11 | 24/10/2026 | Chrome (headless) em 390 e 1280 px | ✅ | Capturas no PDF da entrega |
 
 ---
