@@ -307,6 +307,59 @@ section + section { border-top: 1px solid var(--border); }
   background: var(--surface);
 }
 
+.after-frame { margin-top: 16px; }
+.privacy { margin: 24px 0 0; max-width: 720px; }
+
+/* ---------- Repositórios (API do GitHub) ---------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.muted { color: var(--muted); }
+.small { font-size: .85rem; }
+
+.repo-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 18px; }
+.repo-toolbar input {
+  flex: 1 1 260px;
+  font: inherit;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+.repo-toolbar input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.repo-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: .82rem; color: var(--muted); }
+.lang-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); margin-right: 5px; vertical-align: -1px; }
+
+/* ---------- Implantação ---------- */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.status-card {
+  display: flex; flex-direction: column; gap: 6px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 18px; box-shadow: var(--shadow);
+}
+.status-card strong { font-size: 1.15rem; }
+
+.team {
+  display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; align-items: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px 22px; margin-bottom: 22px;
+}
+.team h3 { margin: 0 0 6px; }
+.team p { margin: 0; font-size: .95rem; }
+@media (max-width: 760px) { .team { grid-template-columns: 1fr; } }
+.team-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.team-list li { display: flex; align-items: center; gap: 10px; font-size: .92rem; }
+.team-list img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); }
+.team-list span { display: block; color: var(--muted); font-size: .8rem; }
+
 /* ---------- Rodapé ---------- */
 .site-footer {
   border-top: 1px solid var(--border);
