@@ -1,0 +1,11 @@
+{
+  "name": "portfoliohub",
+  "private": true,
+  "description": "Ferramentas de teste do site do PortfolioHUB",
+  "scripts": {
+    "test:html": "html-validate index.html 404.html documentacao/slides/index.html documentacao/slides/implantacao/index.html"
+  },
+  "devDependencies": {
+    "html-validate": "11.17.0"
+  }
+}

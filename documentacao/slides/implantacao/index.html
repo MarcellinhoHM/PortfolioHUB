@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>PortfolioHUB — Slides da Implantação</title>
+  <link rel="icon" href="../../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../../assets/css/fonts.css">
+  <link rel="stylesheet" href="../slides.css">
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <div class="viewport">
+    <div class="stage" id="stage">
+
+      <!-- 1. Capa -->
+      <section class="slide active">
+        <p class="kicker">Desafio — Entrega Final</p>
+        <h1>Implantação do Portfolio<span class="grad">HUB</span></h1>
+        <p class="lead">GitHub como ambiente de produção, segurança e colaboração, com o Claude como IA guia da trilha de implantação.</p>
+        <p class="lead author">Marcello Augusto Hesketh Montella</p>
+      </section>
+
+      <!-- 2. Planejamento -->
+      <section class="slide">
+        <p class="kicker">1 · Planejamento</p>
+        <h2>Plano + IA como guia</h2>
+        <div class="cols">
+          <div class="box"><h3>Plano de implantação</h3><p>Fases, tarefas, critérios de pronto, riscos e rollback. Cada fase virou uma Issue no milestone v2.0.0.</p></div>
+          <div class="box"><h3>Claude como guia</h3><p>Script em Python com a API do Claude: system prompt de "Guia de Implantação", trilha de 12 prompts com os enunciados anexados e transcrições salvas no repositório.</p></div>
+        </div>
+      </section>
+
+      <!-- 3. Ambiente GitHub -->
+      <section class="slide">
+        <p class="kicker">2 · Ambiente e integração</p>
+        <h2>GitHub dedicado ao projeto</h2>
+        <ul class="points">
+          <li>GitHub Actions: <span>CI com testes e varredura de segredos em todo PR</span></li>
+          <li>Publicação pelo Actions no ambiente <span>github-pages</span>, que só aceita a main</li>
+          <li>Site integrado à API do GitHub: <span>repositórios ao vivo, versão em produção, último commit e equipe</span></li>
+        </ul>
+        <div class="tag-line"><span>ci.yml</span><span>deploy-pages.yml</span><span>assets/js/github.js</span></div>
+      </section>
+
+      <!-- 4. Usuários -->
+      <section class="slide">
+        <p class="kicker">3 · Gestão de usuários</p>
+        <h2>Quem pode fazer o quê</h2>
+        <div class="cols three">
+          <div class="box"><h3>Papéis</h3><p>Admin só para o mantenedor; colaboradores com Triage ou Write, pelo menor privilégio.</p></div>
+          <div class="box"><h3>Regras da main</h3><p>Ruleset: PR obrigatório, testes aprovados, conversas resolvidas, sem force push e sem apagar a branch.</p></div>
+          <div class="box"><h3>CODEOWNERS</h3><p>Revisor responsável por caminho, com atenção a workflows e à política de segurança.</p></div>
+        </div>
+      </section>
+
+      <!-- 5. Segurança -->
+      <section class="slide">
+        <p class="kicker">3 · Segurança</p>
+        <h2>Políticas aplicadas</h2>
+        <div class="cols">
+          <div class="box"><h3>No GitHub</h3><p>Secret scanning com push protection, Dependabot (alertas e atualizações), CodeQL, Actions fixadas por SHA, permissões mínimas no token e relato privado de vulnerabilidades.</p></div>
+          <div class="box"><h3>No site</h3><p>Content Security Policy sem inline, links externos com noopener, dados da API só via textContent, nenhum segredo no front-end e SECURITY.md publicado.</p></div>
+        </div>
+      </section>
+
+      <!-- 6. Colaboração -->
+      <section class="slide">
+        <p class="kicker">4 · Compartilhamento e acesso</p>
+        <h2>Fluxo de colaboração</h2>
+        <div class="flow">
+          <div class="step">Issue<small>milestone</small></div>
+          <div class="arrow">→</div>
+          <div class="step">Branch<small>feature/*</small></div>
+          <div class="arrow">→</div>
+          <div class="step">Pull Request<small>CI + revisão</small></div>
+          <div class="arrow">→</div>
+          <div class="step">main<small>deploy</small></div>
+        </div>
+        <ul class="points spaced">
+          <li>Repositório público: <span>qualquer pessoa clona, faz fork e propõe mudanças</span></li>
+          <li>Escrita controlada: <span>só entra na main o que passa pelas regras</span></li>
+        </ul>
+      </section>
+
+      <!-- 7. Testes -->
+      <section class="slide">
+        <p class="kicker">5 · Testes e produção</p>
+        <h2>Pronto para uso real</h2>
+        <ul class="points">
+          <li>Testes automatizados: <span>CSP, links internos, noopener, segredos, estrutura e versão</span></li>
+          <li>Gitleaks no histórico completo a cada PR</li>
+          <li>Checklist de produção: <span>404, favicon, sitemap, HTTPS, mobile e tema escuro</span></li>
+          <li>Versão de produção <span>v2.0.0</span> com tag, Release e CHANGELOG</li>
+        </ul>
+      </section>
+
+      <!-- 8. Desafios -->
+      <section class="slide">
+        <p class="kicker">6 · Desafios superados</p>
+        <h2>O que deu trabalho</h2>
+        <div class="cols">
+          <div class="box"><h3>Site estático sem backend</h3><p>O GitHub Actions virou o "backend" na publicação: gera os dados do GitHub sem expor token. A IA roda localmente, nunca no navegador.</p></div>
+          <div class="box"><h3>CSP rígida</h3><p>Exigiu tirar todo CSS e JS inline, inclusive dos slides, para não precisar de unsafe-inline.</p></div>
+          <div class="box"><h3>Único mantenedor</h3><p>O GitHub não deixa aprovar o próprio PR: bypass que só vale dentro de um PR e fica registrado.</p></div>
+          <div class="box"><h3>IA com limites</h3><p>Respostas cortadas no limite de tokens e um anexo que não foi: streaming, limite maior e validar cada recomendação.</p></div>
+        </div>
+      </section>
+
+      <!-- 9. Encerramento -->
+      <section class="slide">
+        <p class="kicker">Obrigado!</p>
+        <h2>Links</h2>
+        <div class="links">
+          <div><span>Site</span>marcellinhohm.github.io/PortfolioHUB</div>
+          <div><span>Repositório</span>github.com/MarcellinhoHM/PortfolioHUB</div>
+          <div><span>Guia (IA)</span>ferramentas/guia-implantacao-claude</div>
+          <div><span>LinkedIn</span>in/marcello-augusto-hesketh-montella-042a66370</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="controls">
+    <button type="button" id="prev" aria-label="Slide anterior">‹</button>
+    <span id="counter">1 / 9</span>
+    <button type="button" id="next" aria-label="Próximo slide">›</button>
+    <button type="button" id="fs" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
+  </div>
+
+  <script src="../slides.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Responsáveis pela revisão de cada parte do repositório.
+# A ÚLTIMA linha que corresponder ao arquivo prevalece.
+# Todo responsável precisa ter acesso de escrita ao repositório.
+
+# Padrão: tudo passa pelo mantenedor
+*                              @MarcellinhoHM
+
+# Áreas sensíveis (automação, segurança e governança): continuam exclusivas
+# do mantenedor mesmo quando houver outros revisores em outras pastas.
+/.github/                      @MarcellinhoHM
+/scripts/                      @MarcellinhoHM
+/ferramentas/                  @MarcellinhoHM
+/SECURITY.md                   @MarcellinhoHM
+/documentacao/implantacao/     @MarcellinhoHM
+
+# Exemplo futuro: corresponsável por um projeto específico
+# /projetos-pessoais/<projeto>/  @MarcellinhoHM @<colaborador>

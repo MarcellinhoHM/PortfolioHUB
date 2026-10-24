@@ -16,3 +16,7 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# Gerado pelo GitHub Actions na publicação
+assets/data/
+node_modules/

@@ -1,0 +1,70 @@
+{
+  "titulo": "Trilha de Implantação do PortfolioHUB",
+  "etapas": {
+    "trilha": [
+      {
+        "titulo": "apresentação inicial",
+        "prompt": "Sou aluno de Ciência da Computação e estou cursando a disciplina Bootcamp I. Nela estou construindo o PortfolioHUB, meu portfólio profissional: um repositório público no GitHub com meus projetos acadêmicos e pessoais e um site publicado no GitHub Pages. Agora estou na Entrega Final, que é a implantação do PortfolioHUB."
+      },
+      {
+        "titulo": "comando para que o Claude atue como meu guia de implantação",
+        "prompt": "Atue como meu guia na trilha de implantação do PortfolioHUB. A cada etapa que eu apresentar, me diga o que fazer, em que ordem, como configurar no GitHub e como comprovar que ficou pronto. Vou começar apresentando o que já foi pedido e entregue nas etapas anteriores."
+      },
+      {
+        "titulo": "apresentação do trabalho solicitado na Entrega Intermediária",
+        "prompt": "Apresento o enunciado da Entrega Intermediária (em anexo).",
+        "anexos": ["Desafio Etapa Intermediária Bootcamp I (1).pdf"]
+      },
+      {
+        "titulo": "apresentação do trabalho realizado para a Entrega Intermediária",
+        "prompt": "E compartilho o resultado do meu trabalho na Entrega Intermediária (em anexo).",
+        "anexos": ["entrega/Entrega_PortfolioHUB_Marcello_Montella.pdf"]
+      },
+      {
+        "titulo": "apresentação do conteúdo a ser entregue no trabalho final",
+        "prompt": "Agora apresento o enunciado da Entrega Final (em anexo). O enunciado cita o Google Gemini como IA de apoio; no meu projeto a IA de apoio será você, Claude. Resuma o que preciso entregar em cada uma das 6 seções e o que isso significa na prática para um site estático no GitHub Pages.",
+        "anexos": ["Desafio Etapa Final Bootcamp I.pdf"]
+      },
+      {
+        "titulo": "plano de implantação detalhado",
+        "prompt": "Monte o plano de implantação detalhado do PortfolioHUB para a Entrega Final, que vence em 25/10/2026. Inclua: objetivo e escopo, fases com tarefas e critérios de pronto, cronograma, ferramentas, riscos com mitigação, plano de reversão (rollback) e como vou usar você como guia em cada fase."
+      },
+      {
+        "titulo": "ambiente GitHub dedicado e integração com o PortfolioHUB",
+        "prompt": "Seção 2 da entrega: como criar e configurar um ambiente GitHub dedicado ao projeto e integrar as funcionalidades do GitHub no PortfolioHUB, como o armazenamento de projetos? Considere que o site é estático no GitHub Pages, sem backend. Quero algo que funcione de verdade, não só links."
+      },
+      {
+        "titulo": "gestão de usuários no GitHub",
+        "prompt": "Seção 3, primeira parte: como configurar a gestão de usuários no GitHub para o PortfolioHUB (papéis, permissões, colaboradores, responsáveis por revisão) e como integrar isso ao PortfolioHUB? Sou o único mantenedor hoje, mas quero que o projeto esteja pronto para receber colaboradores."
+      },
+      {
+        "titulo": "políticas de segurança e conformidade com as melhores práticas",
+        "prompt": "Seção 3, segunda parte: preciso de uma política de segurança para o PortfolioHUB que siga as melhores práticas atuais e as principais normas e referências de segurança. Separe o que deve ser configurado no GitHub (conta, repositório, Actions) do que deve ser implementado no próprio site."
+      },
+      {
+        "titulo": "compartilhamento, controle de acesso e práticas de colaboração",
+        "prompt": "Seção 4: como integrar o repositório ao PortfolioHUB permitindo controle de versão e compartilhamento de código, e como documentar o processo de configuração e as práticas de colaboração? Já tenho CONTRIBUTING.md, modelos de Issue e de Pull Request e guias de Git e de colaboração."
+      },
+      {
+        "titulo": "finalização da integração, testes e preparação para produção",
+        "prompt": "Seção 5: monte o plano de testes e o checklist de lançamento em produção do PortfolioHUB. Quais testes automatizados fazem sentido para um site estático no GitHub Actions, e o que preciso conferir manualmente antes de declarar a versão de produção?"
+      },
+      {
+        "titulo": "roteiro da apresentação final",
+        "prompt": "Seção 6: monte o roteiro da apresentação de 5 minutos para o YouTube sobre as etapas da implantação, mostrando o PortfolioHUB, as soluções implementadas e os desafios superados."
+      }
+    ],
+    "revisao": [
+      {
+        "titulo": "revisão da implantação concluída",
+        "prompt": "Implementei a implantação seguindo a trilha. Em anexo estão o resumo do que foi feito (configurações do GitHub e arquivos do repositório) e o README atualizado. Revise como guia: o que está adequado, o que falta ou tem risco, e o que você ajustaria antes de declarar a versão de produção v2.0.0.",
+        "anexos": ["PortfolioHUB/documentacao/implantacao/resumo-da-implantacao.md", "PortfolioHUB/README.md"]
+      },
+      {
+        "titulo": "análise e sugestões de melhoria do portfólio",
+        "prompt": "Agora avalie o meu portfólio como um recrutador da área de tecnologia avaliaria. Em anexo estão a página principal do site (HTML) e o índice de projetos. Aponte pontos fortes e sugestões de melhoria para o conteúdo, a apresentação dos projetos e o README.",
+        "anexos": ["PortfolioHUB/index.html", "PortfolioHUB/projetos-academicos/README.md", "PortfolioHUB/projetos-pessoais/README.md"]
+      }
+    ]
+  }
+}

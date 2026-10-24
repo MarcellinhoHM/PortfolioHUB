@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://avatars.githubusercontent.com https://github.com; connect-src 'self' https://api.github.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>PortfolioHUB | Marcello Montella</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <meta name="description" content="Portfólio de Marcello Augusto Hesketh Montella: projetos acadêmicos, projetos pessoais e documentação, versionados com Git e publicados no GitHub Pages.">
   <meta property="og:title" content="PortfolioHUB | Marcello Montella">
-  <meta property="og:description" content="Projetos acadêmicos, pessoais e documentação versionados com Git.">
+  <meta property="og:description" content="Portfólio com projetos em Python, Java, C e JavaScript, publicado com CI/CD, testes automatizados e segurança de produção.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://marcellinhohm.github.io/PortfolioHUB/">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <meta property="og:image" content="https://marcellinhohm.github.io/PortfolioHUB/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PortfolioHUB — portfólio de Marcello Montella">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/css/fonts.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -19,15 +25,16 @@
   <header class="site-header">
     <div class="container">
       <a class="brand" href="#inicio">Portfolio<span>HUB</span></a>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">☰</button>
+      <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-controls="nav" aria-expanded="false">☰</button>
       <nav class="nav" id="nav">
         <a href="#sobre">Sobre</a>
         <a href="#projetos">Projetos</a>
+        <a href="#repositorios">Repositórios</a>
+        <a href="#implantacao">Implantação</a>
         <a href="#documentacao">Documentação</a>
         <a href="#slides">Slides</a>
-        <a href="#versoes">Versões</a>
         <a href="#contato">Contato</a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">☾</button>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">☾</button>
       </nav>
     </div>
   </header>
@@ -40,8 +47,9 @@
         <span class="eyebrow">Portfólio · Desenvolvimento</span>
         <h1>Olá, eu sou <span class="grad">Marcello Montella</span>.</h1>
         <p class="lead">
-          Estudante de Ciência da Computação. Aqui reúno meus projetos acadêmicos e pessoais,
-          organizados e versionados com Git.
+          Estudante de Ciência da Computação no Centro Universitário de Brasília (CEUB).
+          Construo projetos com Python, Java, C e JavaScript e levo práticas de produção
+          (testes, CI/CD e segurança) até para projetos pessoais.
         </p>
         <div class="actions">
           <a class="btn primary" href="https://github.com/MarcellinhoHM/PortfolioHUB" target="_blank" rel="noopener">
@@ -73,8 +81,10 @@
         </div>
         <ul class="facts">
           <li><span>GitHub</span><a href="https://github.com/MarcellinhoHM" target="_blank" rel="noopener">@MarcellinhoHM</a></li>
-          <li><span>Linguagens</span><span>C · Java · JS · Python</span></li>
-          <li><span>Ferramentas</span><span>Git · GitHub · VS Code</span></li>
+          <li><span>Linguagens</span><span>Python · JavaScript · Java · C · HTML/CSS</span></li>
+          <li><span>Práticas</span><span>Testes · CI/CD · PRs · SemVer</span></li>
+          <li><span>Segurança</span><span>CSP · secret scanning · CodeQL</span></li>
+          <li><span>IA</span><span>API do Claude (Anthropic)</span></li>
         </ul>
       </div>
     </section>
@@ -87,7 +97,22 @@
 
         <div class="grid">
           <article class="card featured">
-            <div class="tag-row"><span class="tag cat">Acadêmico · Destaque</span><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">API de IA</span></div>
+            <div class="tag-row"><span class="tag cat">Destaque · DevSecOps</span><span class="tag">GitHub Actions</span><span class="tag">JavaScript</span><span class="tag">Python</span></div>
+            <h3>PortfolioHUB — site estático com CI/CD e segurança de produção</h3>
+            <p>
+              Este site. Publicação automática no GitHub Pages só depois dos testes (testes em Python, validação de HTML
+              e varredura de segredos), branch main protegida por rulesets, Content Security Policy sem
+              <code>unsafe-inline</code>, Dependabot e CodeQL. Os dados do GitHub são gerados no build, com a API ao vivo como reserva.
+            </p>
+            <div class="links">
+              <a href="https://github.com/MarcellinhoHM/PortfolioHUB" target="_blank" rel="noopener">Código →</a>
+              <a href="https://github.com/MarcellinhoHM/PortfolioHUB/actions" target="_blank" rel="noopener">Pipelines →</a>
+              <a href="#implantacao">Como foi implantado →</a>
+            </div>
+          </article>
+
+          <article class="card featured">
+            <div class="tag-row"><span class="tag cat">Acadêmico · Destaque</span><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">Claude (Anthropic)</span></div>
             <h3>Bootcamp — Integração com a API do Claude</h3>
             <p>
               Série de notebooks sobre como integrar um modelo de linguagem em aplicações Python:
@@ -141,6 +166,120 @@
       </div>
     </section>
 
+    <!-- Repositórios (dados ao vivo da API do GitHub) -->
+    <section id="repositorios">
+      <div class="container reveal">
+        <h2 class="section-title">Repositórios no GitHub</h2>
+        <p class="section-sub">
+          Lista atualizada automaticamente a partir do GitHub: todo repositório público próprio (sem forks)
+          aparece aqui, com linguagem, estrelas e data da última atualização.
+        </p>
+        <div class="repo-toolbar">
+          <label for="repo-filtro" class="sr-only">Filtrar repositórios</label>
+          <input id="repo-filtro" type="search" placeholder="Filtrar por nome, linguagem ou descrição" autocomplete="off">
+          <span id="repo-status" class="muted" role="status">Carregando repositórios…</span>
+        </div>
+        <div class="grid" id="repo-lista" aria-live="polite"></div>
+        <noscript><p class="muted">Ative o JavaScript para ver a lista, ou acesse <a href="https://github.com/MarcellinhoHM?tab=repositories">github.com/MarcellinhoHM</a>.</p></noscript>
+      </div>
+    </section>
+
+    <!-- Implantação -->
+    <section id="implantacao">
+      <div class="container reveal">
+        <h2 class="section-title">Implantação</h2>
+        <p class="section-sub">
+          Como o PortfolioHUB foi colocado em produção: ambiente GitHub dedicado, gestão de usuários,
+          segurança, testes automatizados e publicação via GitHub Actions, com o Claude como guia da trilha.
+        </p>
+
+        <div class="status-grid">
+          <div class="status-card">
+            <span class="muted">Versão em produção</span>
+            <strong id="st-release">—</strong>
+            <span class="muted small" id="st-release-data"></span>
+          </div>
+          <div class="status-card">
+            <span class="muted">Último commit na main</span>
+            <strong id="st-commit">—</strong>
+            <span class="muted small" id="st-commit-data"></span>
+          </div>
+          <div class="status-card">
+            <span class="muted">Testes (CI)</span>
+            <a href="https://github.com/MarcellinhoHM/PortfolioHUB/actions/workflows/ci.yml" target="_blank" rel="noopener">
+              <img src="https://github.com/MarcellinhoHM/PortfolioHUB/actions/workflows/ci.yml/badge.svg" alt="Status dos testes" height="20">
+            </a>
+          </div>
+          <div class="status-card">
+            <span class="muted">Publicação (Pages)</span>
+            <a href="https://github.com/MarcellinhoHM/PortfolioHUB/actions/workflows/deploy-pages.yml" target="_blank" rel="noopener">
+              <img src="https://github.com/MarcellinhoHM/PortfolioHUB/actions/workflows/deploy-pages.yml/badge.svg" alt="Status da publicação" height="20">
+            </a>
+          </div>
+        </div>
+
+        <div class="team">
+          <div>
+            <h3>Equipe e permissões</h3>
+            <p class="muted">
+              Contribuidores vêm da API do GitHub. Hoje o projeto tem um mantenedor (<strong>Admin</strong>); contribuições
+              externas entram por fork e Pull Request. Toda mudança na <code>main</code>, inclusive do mantenedor, passa por
+              Pull Request com os testes obrigatórios aprovados; ninguém faz push direto.
+            </p>
+          </div>
+          <ul class="team-list" id="equipe"></ul>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">1 · Planejamento</span></div>
+            <h3>Plano de implantação</h3>
+            <p>Fases, tarefas, critérios de pronto, riscos, rollback e o Claude configurado como guia da trilha.</p>
+            <div class="links">
+              <a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/implantacao/plano-de-implantacao.md" target="_blank" rel="noopener">Plano →</a>
+              <a href="https://github.com/MarcellinhoHM/PortfolioHUB/tree/main/ferramentas/guia-implantacao-claude" target="_blank" rel="noopener">Guia com Claude →</a>
+            </div>
+          </article>
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">2 · Ambiente</span><span class="tag">GitHub</span></div>
+            <h3>Ambiente GitHub dedicado</h3>
+            <p>Actions, ambiente <code>github-pages</code> restrito à main, integração da API do GitHub no site.</p>
+            <div class="links"><a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/implantacao/ambiente-github.md" target="_blank" rel="noopener">Ler →</a></div>
+          </article>
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">3 · Usuários</span><span class="tag">Segurança</span></div>
+            <h3>Usuários e segurança</h3>
+            <p>Papéis e permissões, CODEOWNERS, regras da main, secret scanning, Dependabot, CodeQL e CSP.</p>
+            <div class="links">
+              <a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/implantacao/gestao-de-usuarios.md" target="_blank" rel="noopener">Usuários →</a>
+              <a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/implantacao/politica-de-seguranca.md" target="_blank" rel="noopener">Segurança →</a>
+            </div>
+          </article>
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">4 · Acesso</span><span class="tag">Colaboração</span></div>
+            <h3>Compartilhamento e colaboração</h3>
+            <p>Visibilidade, clone e fork, fluxo de Issue → branch → PR → revisão → merge, e como contribuir.</p>
+            <div class="links"><a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/implantacao/compartilhamento-e-colaboracao.md" target="_blank" rel="noopener">Ler →</a></div>
+          </article>
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">5 · Testes</span><span class="tag">Produção</span></div>
+            <h3>Testes e lançamento</h3>
+            <p>Testes automatizados no CI, checklist de produção e registro dos resultados da v2.0.0.</p>
+            <div class="links"><a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/implantacao/testes-e-lancamento.md" target="_blank" rel="noopener">Ler →</a></div>
+          </article>
+          <article class="card">
+            <div class="tag-row"><span class="tag cat">6 · Apresentação</span></div>
+            <h3>Roteiro e slides</h3>
+            <p>Roteiro de 5 minutos sobre as etapas da implantação, soluções e desafios superados.</p>
+            <div class="links">
+              <a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/implantacao/roteiro-apresentacao-final.md" target="_blank" rel="noopener">Roteiro →</a>
+              <a href="documentacao/slides/implantacao/index.html" target="_blank" rel="noopener">Slides →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- Documentação -->
     <section id="documentacao">
       <div class="container reveal">
@@ -185,9 +324,10 @@
         <h2 class="section-title">Slides</h2>
         <p class="section-sub">A apresentação do repositório. Use as setas do teclado ou os botões para navegar.</p>
         <iframe class="slides-frame" src="documentacao/slides/index.html" title="Slides do PortfolioHUB" loading="lazy"></iframe>
-        <div class="actions" style="margin-top:16px;">
+        <div class="actions after-frame">
           <a class="btn" href="documentacao/slides/index.html" target="_blank" rel="noopener">Abrir em tela cheia →</a>
           <a class="btn" href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/documentacao/roteiro-apresentacao.md" target="_blank" rel="noopener">Roteiro da apresentação →</a>
+          <a class="btn primary" href="documentacao/slides/implantacao/index.html" target="_blank" rel="noopener">Slides da implantação (Entrega Final) →</a>
         </div>
       </div>
     </section>
@@ -198,6 +338,10 @@
         <h2 class="section-title">Versões</h2>
         <p class="section-sub">O repositório segue versionamento semântico. Cada versão tem tag e Release no GitHub.</p>
         <ul class="timeline">
+          <li>
+            <strong>v2.0.0 — Implantação em produção</strong>
+            <span>Ambiente GitHub dedicado (Actions, ambiente github-pages, regras da main), segurança (CSP, secret scanning, Dependabot, CodeQL), integração com a API do GitHub, testes automatizados e guia de implantação com o Claude.</span>
+          </li>
           <li>
             <strong>v1.1.0 — Documentação, slides e LinkedIn</strong>
             <span>Projeto do bootcamp, guias de Git, colaboração e GitHub Pages, slides, integração com LinkedIn e README completo.</span>
@@ -230,6 +374,14 @@
             GitHub
           </a>
         </div>
+        <p class="privacy muted small">
+          <strong>Privacidade:</strong> este site não usa cookies nem coleta dados pessoais. O navegador guarda só a sua
+          escolha de tema e um cache de 10 minutos dos dados públicos do GitHub. O site é hospedado no GitHub Pages e
+          pode consultar a API pública do GitHub; o GitHub pode registrar dados técnicos de acesso (como o endereço IP),
+          conforme a
+          <a href="https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Declaração de Privacidade do GitHub</a>.
+          As fontes são servidas pelo próprio site.
+        </p>
       </div>
     </section>
 
@@ -238,10 +390,11 @@
   <footer class="site-footer">
     <div class="container">
       <span>© <span id="year">2026</span> Marcello Augusto Hesketh Montella</span>
-      <span>PortfolioHUB v1.1.0 · <a href="https://github.com/MarcellinhoHM/PortfolioHUB" target="_blank" rel="noopener">código-fonte</a></span>
+      <span>PortfolioHUB v2.0.0 · <a href="https://github.com/MarcellinhoHM/PortfolioHUB" target="_blank" rel="noopener">código-fonte</a> · <a href="https://github.com/MarcellinhoHM/PortfolioHUB/blob/main/SECURITY.md" target="_blank" rel="noopener">segurança</a></span>
     </div>
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/github.js"></script>
 </body>
 </html>

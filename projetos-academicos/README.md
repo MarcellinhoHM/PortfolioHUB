@@ -15,7 +15,7 @@ Projetos de disciplinas que ficam em repositórios próprios no GitHub:
 | Repositório | Descrição | Tecnologias |
 |---|---|---|
 | [Atm](https://github.com/MarcellinhoHM/Atm) | Simulador de caixa eletrônico modularizado (menu, depósito, saque e saldo). | C |
-| [Prova](https://github.com/MarcellinhoHM/Prova) | Site com página de login e página principal para avaliação da disciplina. | HTML, Bootstrap, JS |
+| [Prova](https://github.com/MarcellinhoHM/Prova) | Site com página de login e página principal para avaliação da disciplina. | HTML, Bootstrap |
 | [programacao_web_cc_a](https://github.com/MarcellinhoHM/programacao_web_cc_a) | Exercícios da disciplina de Programação para Web. | HTML, CSS, JS |
 
 ## Padrão de cada projeto

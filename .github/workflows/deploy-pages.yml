@@ -1,0 +1,112 @@
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Ao publicar uma Release, republica para o site mostrar a nova versão em produção
+  # (o ambiente github-pages aceita as tags v*, protegidas pela ruleset "Tags de versão")
+  release:
+    types: [published]
+  # Republica todo dia para atualizar os dados do GitHub exibidos no site
+  schedule:
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Só uma publicação por vez; a mais nova não cancela a que já está em andamento
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  testes:
+    name: Testes antes de publicar
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - run: python -m unittest discover -s tests
+
+  publicar:
+    name: Publicar
+    needs: testes
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Ambiente dedicado: só aceita publicações vindas da branch main
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Montar a pasta do site
+        # Publica só o que o site usa; ferramentas, testes e configs ficam de fora
+        run: |
+          mkdir -p _site
+          cp index.html 404.html sitemap.xml .nojekyll _site/
+          cp -r assets documentacao projetos-academicos projetos-pessoais _site/
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Gerar dados do GitHub para o site
+        # O Actions faz o papel de backend: consulta a API com o token do workflow
+        # (somente leitura) e publica só dados públicos em assets/data/github.json
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/gerar_dados_github.py _site/assets/data/github.json
+
+      - name: Garantir que nenhum segredo vai ser publicado
+        run: |
+          PADRAO='sk-ant-[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{22,}|-----BEGIN [A-Z ]*PRIVATE KEY-----'
+          if grep -rIEn "$PADRAO" _site; then
+            echo "::error::Possível segredo no conteúdo a publicar"; exit 1
+          fi
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+      - id: deploy
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  fumaca:
+    name: Teste de fumaça em produção
+    needs: publicar
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Conferir o site no ar
+        env:
+          URL: https://marcellinhohm.github.io/PortfolioHUB
+        run: |
+          set -euo pipefail
+          sleep 30  # propagação da CDN do Pages
+          checar() {
+            local codigo; codigo=$(curl -s -o /dev/null -w '%{http_code}' "$1")
+            echo "$1 -> $codigo (esperado $2)"; [ "$codigo" = "$2" ]
+          }
+          checar "$URL/" 200
+          checar "$URL/documentacao/slides/" 200
+          checar "$URL/documentacao/slides/implantacao/" 200
+          checar "$URL/assets/data/github.json" 200
+          checar "$URL/pagina-que-nao-existe" 404
+          curl -s "$URL/" | grep -q 'Content-Security-Policy'
+          curl -s "$URL/assets/data/github.json" | python3 -c "import json,sys; d=json.load(sys.stdin); assert d['repos'], 'sem repositórios'"
+          echo "Teste de fumaça aprovado"
