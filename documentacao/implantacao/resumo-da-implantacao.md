@@ -22,13 +22,13 @@ Visão de uma página de tudo o que foi configurado e implementado na Entrega Fi
 | Arquivo | Função |
 |---|---|
 | `.github/workflows/ci.yml` | Testes do site (unittest, html-validate, node --check) e varredura de segredos (gitleaks), em todo PR e push na main |
-| `.github/workflows/deploy-pages.yml` | Testes → montagem do `_site` → geração do `github.json` → busca de segredos → publicação no ambiente `github-pages` → teste de fumaça; a cada push na main, a cada Release publicada e diariamente |
+| `.github/workflows/deploy-pages.yml` | Testes → montagem do `_site` → geração do `github.json` → busca de segredos → publicação no ambiente `github-pages` → teste de fumaça; a cada push na main e diariamente (verificação) |
 | `.github/dependabot.yml` | Atualizações semanais de Actions, npm e pip |
 | `.github/release.yml` | Categorias das notas de Release geradas automaticamente |
 | `.github/CODEOWNERS` | Mantenedor revisa tudo; áreas sensíveis exclusivas |
 | `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` | Políticas públicas |
 | `scripts/gerar_dados_github.py` | Gera, no build, os dados públicos do GitHub para o site |
-| `assets/js/github.js` | Seções Repositórios e Implantação: lê o JSON do build, com a API ao vivo como reserva; só `textContent` e links validados |
+| `assets/js/github.js` | Seções Repositórios e Implantação: API ao vivo com cache, com o JSON do build como reserva; só `textContent` e links validados |
 | `tests/test_site.py` | 14 testes: CSP, inline, estilos e fontes externos, noopener, innerHTML/eval, segredos, .env, links, âncoras, estrutura, JSON, versão |
 | `package.json` + `package-lock.json` | html-validate com versão travada |
 | `404.html`, `sitemap.xml`, `assets/img/favicon.svg` | Produção |

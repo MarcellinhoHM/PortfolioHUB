@@ -79,7 +79,7 @@ Transcrições completas: [trilha](../../ferramentas/guia-implantacao-claude/tra
 | R1 (B1) | Confirmar 2FA e fazer o inventário da conta | Pendente (ação na conta) | Checklist em [gestao-de-usuarios.md](gestao-de-usuarios.md#5-inventário-de-acessos) |
 | R1 (B2) | O bypass dispensa também os checks: adotar a opção B (sem bypass) ou um segundo revisor | Regra "bypass só com checks verdes e justificado" adotada; opções A e B documentadas | [gestao-de-usuarios.md](gestao-de-usuarios.md#regra-de-uso-do-bypass) |
 | R1 (B3) | Aviso de privacidade citando o GitHub Pages e a API do GitHub | Adotado | Seção Contato do site |
-| R1 (B4) | Republicar o site ao publicar a Release, para mostrar a v2.0.0 | Adotado (`release: published` no workflow) | Execução do workflow após a Release |
+| R1 (B4) | Republicar o site ao publicar a Release, para mostrar a v2.0.0 | Adotado e depois substituído: o Pages não republica o mesmo commit; na v2.0.1 o site passou a ler a versão ao vivo da API | Execução do workflow após a Release |
 | R1 (R3) | Varrer o histórico completo com gitleaks | Executado após o merge (`workflow_dispatch` do CI) | [testes-e-lancamento.md](testes-e-lancamento.md#6-registro-de-execução) |
 | R1 (R7) | Registrar as diretivas da CSP ignoradas em `<meta>` | Adotado | Riscos aceitos da [política](politica-de-seguranca.md#7-riscos-aceitos) |
 | R1 (R9, R10) | OpenSSF Scorecard e ensaio de rollback | Adiado | Próximos passos |
