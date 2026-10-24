@@ -69,7 +69,7 @@ gh api -X PUT repos/$R/actions/permissions/fork-pr-contributor-approval -f appro
 gh api -X PUT repos/MarcellinhoHM/PortfolioHUB/pages -f build_type=workflow
 ```
 
-O workflow [`deploy-pages.yml`](../../.github/workflows/deploy-pages.yml) roda a cada push na `main`, uma vez por dia (para atualizar os dados do GitHub) e sob demanda:
+O workflow [`deploy-pages.yml`](../../.github/workflows/deploy-pages.yml) roda a cada push na `main`, a cada Release publicada (para o site mostrar a nova versão), uma vez por dia (para atualizar os dados do GitHub) e sob demanda:
 
 1. **Testes antes de publicar:** roda a mesma suíte do CI. Se falhar, nada é publicado.
 2. **Publicar:** monta a pasta `_site` só com os arquivos do site (ferramentas, testes e configurações ficam de fora), gera o `github.json` e publica no ambiente `github-pages`.
@@ -93,7 +93,7 @@ O histórico de publicações fica em *Environments → github-pages* e na aba *
 
 | Seção do site | Dados | Fonte |
 |---|---|---|
-| **Repositórios no GitHub** | Todos os repositórios públicos, com linguagem, estrelas, data de atualização, link do código e do site; filtro por texto | `github.json` (build) → API `/users/MarcellinhoHM/repos` |
+| **Repositórios no GitHub** | Repositórios públicos próprios (sem forks e arquivados), com linguagem, estrelas, data de atualização, link do código e do site; filtro por texto | `github.json` (build) → API `/users/MarcellinhoHM/repos` |
 | **Implantação → Versão em produção** | Última Release | `github.json` → API `/releases/latest` |
 | **Implantação → Último commit** | SHA, mensagem e data | `github.json` → API `/commits` |
 | **Implantação → Testes e Publicação** | Status dos workflows | Badges do GitHub Actions |
@@ -105,7 +105,7 @@ Cuidados de segurança na integração:
 
 - O JSON público só tem campos escolhidos a dedo; o token do workflow nunca é gravado.
 - No navegador, os dados entram na página só com `textContent`, e todo link passa por validação (`https:`) antes de ir para o `href`.
-- A CSP libera conexões apenas para o próprio site e para `api.github.com`.
+- A CSP libera conexões apenas para o próprio site e para `api.github.com`; estilos e fontes só do próprio site.
 - O cache de 10 minutos na sessão protege contra o limite de 60 requisições por hora da API anônima.
 
 Resultado prático: **criar um repositório público novo faz ele aparecer no portfólio** na próxima publicação (ou na hora, pela API ao vivo), e **publicar uma Release atualiza a versão em produção** exibida no site.

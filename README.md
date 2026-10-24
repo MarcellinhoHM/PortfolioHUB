@@ -2,7 +2,7 @@
 
 # PortfolioHUB
 
-**Portfólio de projetos acadêmicos e pessoais, versionado com Git e publicado no GitHub Pages.**
+**Portfólio de projetos acadêmicos e pessoais, publicado com CI/CD, testes automatizados e segurança de produção — HTML, CSS e JavaScript puros.**
 
 [![GitHub Pages](https://img.shields.io/badge/site-GitHub_Pages-7b2d8e?logo=github&logoColor=white)](https://marcellinhohm.github.io/PortfolioHUB/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Marcello_Montella-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/marcello-augusto-hesketh-montella-042a66370)
@@ -57,7 +57,7 @@ Na Entrega Final, o PortfolioHUB foi implantado em produção com o **Claude** (
 | 2. Ambiente GitHub | Publicação via Actions no ambiente `github-pages`; site integrado à API do GitHub | [Ambiente](documentacao/implantacao/ambiente-github.md) |
 | 3. Usuários e segurança | Rulesets, CODEOWNERS, secret scanning, Dependabot, CodeQL, CSP, SECURITY.md | [Usuários](documentacao/implantacao/gestao-de-usuarios.md) · [Segurança](documentacao/implantacao/politica-de-seguranca.md) |
 | 4. Colaboração | Fluxo Issue → branch → PR → CI → revisão → merge, documentado | [Colaboração](documentacao/implantacao/compartilhamento-e-colaboracao.md) |
-| 5. Testes e produção | CI com 18 verificações, teste de fumaça, checklist de lançamento | [Testes](documentacao/implantacao/testes-e-lancamento.md) |
+| 5. Testes e produção | 18 verificações automáticas (T-01 a T-18): 14 testes Python, html-validate, node --check, gitleaks, segredos no pacote, teste de fumaça e CodeQL; checklist de lançamento | [Testes](documentacao/implantacao/testes-e-lancamento.md) |
 | 6. Apresentação | Roteiro de 5 minutos e slides | [Roteiro](documentacao/implantacao/roteiro-apresentacao-final.md) |
 
 ## Estrutura do repositório
@@ -137,9 +137,9 @@ Detalhes em [Guia do GitHub Pages](documentacao/guia-github-pages.md) e [Ambient
 
 ## Segurança
 
-- A `main` só recebe mudanças por Pull Request, com testes obrigatórios e revisão do responsável ([CODEOWNERS](.github/CODEOWNERS)).
+- A `main` só recebe mudanças por Pull Request, com testes obrigatórios; contribuições precisam da aprovação do responsável ([CODEOWNERS](.github/CODEOWNERS)). Ninguém faz push direto, nem o mantenedor.
 - Secret scanning com push protection, Dependabot e CodeQL ativos.
-- Site com Content Security Policy restritiva e nenhum segredo no front-end.
+- Site com Content Security Policy restritiva, sem recursos de terceiros (fontes servidas pelo próprio site) e nenhum segredo no front-end.
 - Encontrou uma vulnerabilidade? Siga o [SECURITY.md](SECURITY.md).
 
 Política completa: [politica-de-seguranca.md](documentacao/implantacao/politica-de-seguranca.md).

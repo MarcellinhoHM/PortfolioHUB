@@ -94,15 +94,15 @@ Legenda: ✅ implementado · 🔶 depende de ação do mantenedor na conta · �
 | SITE-02 | Content Security Policy por `<meta>` em todas as páginas, sem `unsafe-inline` e sem `unsafe-eval` | ✅ | Teste `test_toda_pagina_tem_csp_restritiva` e console sem violações |
 | SITE-03 | `Referrer-Policy: strict-origin-when-cross-origin` | ✅ | Meta tag em todas as páginas |
 | SITE-04 | DOM seguro: dados externos só via `textContent`, links validados (`https:`), sem `innerHTML` nem `eval` | ✅ | Teste `test_javascript_nao_usa_innerhtml_nem_eval` |
-| SITE-05 | Nenhum script de terceiros (só CSS de fontes do Google) | ✅ | CSP `script-src 'self'` |
+| SITE-05 | Nenhum recurso de terceiros em tempo de execução: scripts, estilos e fontes servidos pelo próprio site | ✅ | CSP com `script-src`, `style-src` e `font-src` só `'self'`; teste `test_sem_estilos_externos` |
 | SITE-06 | Links externos com `rel="noopener"` | ✅ | Teste `test_links_externos_com_noopener` |
 | SITE-07 | Nenhum segredo no front-end; a API do Claude não é chamada pelo site | ✅ | Teste `test_nenhum_segredo_versionado` |
 
 A CSP do `index.html`:
 
 ```text
-default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com;
-font-src https://fonts.gstatic.com; img-src 'self' data: https://avatars.githubusercontent.com https://github.com;
+default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self';
+img-src 'self' data: https://avatars.githubusercontent.com https://github.com;
 connect-src 'self' https://api.github.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'
 ```
 
@@ -111,7 +111,7 @@ connect-src 'self' https://api.github.com; frame-src 'self'; object-src 'none'; 
 | ID | Controle | Status | Verificação |
 |---|---|---|---|
 | DAD-01 | Minimização: só LinkedIn e GitHub como contato (sem telefone, endereço ou e-mail pessoal) | ✅ | Revisão do site |
-| DAD-02 | Aviso de privacidade no site: sem cookies e sem coleta de dados; o que fica no navegador (tema e cache) | ✅ | Seção Contato do site |
+| DAD-02 | Aviso de privacidade no site: sem cookies e sem coleta de dados; o que fica no navegador (tema e cache); hospedagem no GitHub Pages e consulta à API do GitHub, com link para a Declaração de Privacidade do GitHub | ✅ | Seção Contato do site |
 | DAD-03 | Chave da API só no `.env` local, dedicada ao projeto e com limite de gastos | 🔶 | Console da Anthropic com limite configurado |
 
 ## 5. Gestão de vulnerabilidades
@@ -140,9 +140,9 @@ Depois de cada incidente: registro com data, causa, ações e lição aprendida 
 
 | Risco | Motivo | Mitigação parcial |
 |---|---|---|
-| Sem cabeçalhos HTTP próprios (`frame-ancestors`, `X-Frame-Options`) | O GitHub Pages não permite configurá-los | CSP por `<meta>`; o site não tem formulários nem ações que mudem estado, então *clickjacking* tem impacto baixo |
-| Fontes carregadas do Google Fonts | Simplicidade | Só CSS e fontes; nenhum script de terceiros. Alternativa: hospedar as fontes no próprio site |
-| Mantenedor mescla os próprios PRs com bypass | O GitHub não permite autoaprovação | Bypass só dentro de PR, registrado; checks rodam em todo PR |
+| Sem cabeçalhos HTTP próprios (`X-Frame-Options`, HSTS próprio) e diretivas da CSP ignoradas em `<meta>` (`frame-ancestors`, `report-uri`, `sandbox`) | O GitHub Pages não permite configurar cabeçalhos | CSP por `<meta>` para o resto; o site não tem login, formulários nem ações que mudem estado, então *clickjacking* tem impacto baixo |
+| Mantenedor mescla os próprios PRs com bypass, que dispensa também os checks | O GitHub não permite autoaprovação | Bypass só dentro de PR e registrado; regra "bypass só com checks verdes e justificado" ([gestao-de-usuarios.md](gestao-de-usuarios.md#regra-de-uso-do-bypass)); opção B (sem bypass) documentada |
+| Workflows agendados param após 60 dias sem atividade no repositório | Regra do GitHub para repositórios públicos | Reativar em *Actions* quando necessário; a publicação também roda a cada push e Release |
 | Sem papéis granulares para colaboradores | Repositório em conta pessoal | Rulesets e CODEOWNERS limitam o que um colaborador consegue fazer |
 
 ## 8. Mapeamento para as referências

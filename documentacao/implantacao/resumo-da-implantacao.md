@@ -22,13 +22,14 @@ Visão de uma página de tudo o que foi configurado e implementado na Entrega Fi
 | Arquivo | Função |
 |---|---|
 | `.github/workflows/ci.yml` | Testes do site (unittest, html-validate, node --check) e varredura de segredos (gitleaks), em todo PR e push na main |
-| `.github/workflows/deploy-pages.yml` | Testes → montagem do `_site` → geração do `github.json` → busca de segredos → publicação no ambiente `github-pages` → teste de fumaça; diário e a cada push na main |
+| `.github/workflows/deploy-pages.yml` | Testes → montagem do `_site` → geração do `github.json` → busca de segredos → publicação no ambiente `github-pages` → teste de fumaça; a cada push na main, a cada Release publicada e diariamente |
 | `.github/dependabot.yml` | Atualizações semanais de Actions, npm e pip |
+| `.github/release.yml` | Categorias das notas de Release geradas automaticamente |
 | `.github/CODEOWNERS` | Mantenedor revisa tudo; áreas sensíveis exclusivas |
 | `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` | Políticas públicas |
 | `scripts/gerar_dados_github.py` | Gera, no build, os dados públicos do GitHub para o site |
 | `assets/js/github.js` | Seções Repositórios e Implantação: lê o JSON do build, com a API ao vivo como reserva; só `textContent` e links validados |
-| `tests/test_site.py` | 13 testes: CSP, inline, noopener, innerHTML/eval, segredos, .env, links, âncoras, estrutura, JSON, versão |
+| `tests/test_site.py` | 14 testes: CSP, inline, estilos e fontes externos, noopener, innerHTML/eval, segredos, .env, links, âncoras, estrutura, JSON, versão |
 | `package.json` + `package-lock.json` | html-validate com versão travada |
 | `404.html`, `sitemap.xml`, `assets/img/favicon.svg` | Produção |
 | `ferramentas/guia-implantacao-claude/` | Claude configurado como guia da implantação; transcrições |
@@ -41,12 +42,14 @@ Visão de uma página de tudo o que foi configurado e implementado na Entrega Fi
 - Novas seções: **Repositórios no GitHub** (lista ao vivo com filtro) e **Implantação** (versão em produção, último commit, status do CI e da publicação, equipe, links para as 6 etapas).
 - Aviso de privacidade (sem cookies, sem coleta de dados).
 - Botões dos slides e do site com `type="button"`; HTML validado.
+- Fontes servidas pelo próprio site; imagem de prévia (`og:image`); conteúdo visível sem JavaScript; menu com `aria-expanded`.
+- O próprio PortfolioHUB como projeto em destaque; lista de repositórios sem forks.
 
 ## Verificações feitas
 
 | Verificação | Resultado |
 |---|---|
-| Testes locais | 13/13 OK |
+| Testes locais | 14/14 OK |
 | Prova negativa | 5 violações detectadas |
 | html-validate | Sem erros (após corrigir 8 botões) |
 | Push direto na main | Recusado (GH013) |

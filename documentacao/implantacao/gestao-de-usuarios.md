@@ -46,7 +46,23 @@ O repositório está na conta pessoal `MarcellinhoHM` (decisão D2 do [plano](pl
 | **Mantenedor (admin)** | @MarcellinhoHM | Dono do repositório | Tudo, inclusive mesclar com bypass **somente dentro de um PR** | Push direto na `main` |
 | **Automação** | Dependabot e GitHub Actions | Configuração | Dependabot abre PRs; Actions testa e publica | Escrever no repositório: o token padrão é somente leitura |
 
-> **Sobre o bypass do mantenedor:** o GitHub não permite aprovar o próprio PR. Enquanto houver um único mantenedor, os PRs dele são mesclados marcando *bypass rules*, o que só é possível dentro de um PR e fica registrado nele. É uma decisão consciente: o push direto continua bloqueado.
+> **Sobre o bypass do mantenedor:** o GitHub não permite aprovar o próprio PR. Enquanto houver um único mantenedor, os PRs dele são mesclados marcando *bypass rules*, o que só é possível dentro de um PR e fica registrado nele. O push direto continua bloqueado.
+
+### Regra de uso do bypass
+
+A revisão final com o guia apontou que o bypass dispensa **também** os checks obrigatórios. Por isso vale a regra:
+
+1. **Bypass só com os checks "Testes do site" e "Varredura de segredos" verdes** no PR.
+2. **Justificativa no PR** (por exemplo: "mantenedor único; checks verdes").
+3. Nunca usar bypass para contornar um check vermelho: corrigir o problema no próprio PR.
+
+### Evolução da regra de revisão
+
+| Opção | Configuração | Quando |
+|---|---|---|
+| **Atual** | 1 aprovação + code owner, com bypass do admin só via PR e a regra acima | Mantenedor único |
+| **A** | Convidar um colaborador (Write) e incluí-lo no CODEOWNERS para as áreas comuns; áreas sensíveis continuam só com o mantenedor | Quando houver um colaborador que possa revisar |
+| **B** | 0 aprovações, sem exigir code owner e **sem bypass**: os checks passam a valer sempre, inclusive para o mantenedor | Alternativa recomendada pelo guia enquanto não houver um segundo revisor |
 
 ## 4. Mecanismos que garantem os papéis
 
@@ -94,6 +110,14 @@ gh api repos/$R/hooks --jq length                                         # 0 we
 |---|---|---|---|---|---|---|
 | @MarcellinhoHM | Mantenedor (admin) | Dono do repositório | — | — | Conferir | Ativo |
 
+Inventário da **conta** (feito pelo mantenedor, nas configurações da conta do GitHub):
+
+- [ ] *Password and authentication*: 2FA ativo (app TOTP ou passkey) e códigos de recuperação guardados fora do computador
+- [ ] *SSH and GPG keys*: só chaves em uso
+- [ ] *Applications* (OAuth Apps e GitHub Apps): revogar o que não é usado
+- [ ] *Developer settings → Personal access tokens*: apagar tokens sem uso; os restantes com validade
+- [ ] *Sessions*: encerrar sessões desconhecidas
+
 ## 6. Concessão e revogação
 
 ### Concessão (onboarding)
@@ -114,7 +138,7 @@ gh api repos/$R/hooks --jq length                                         # 0 we
 
 O site **não tem login**, e não deve ter: qualquer verificação feita no navegador pode ser burlada. A integração mostra publicamente como o acesso funciona:
 
-- Seção **Implantação → Equipe e permissões** do site: contribuidores vindos da API do GitHub (avatar, perfil, número de commits) e o resumo dos papéis.
+- Seção **Implantação → Equipe e permissões** do site: contribuidores vindos da API do GitHub (avatar, perfil, número de commits) e um resumo fiel da situação atual (um mantenedor; contribuições externas por fork e PR; ninguém faz push direto).
 - Usa a lista de **contribuidores** (pública), não a de colaboradores (quem tem acesso), que não deve ser exposta (LGPD).
 - Links para CONTRIBUTING, CODE_OF_CONDUCT e esta política na documentação.
 

@@ -17,12 +17,22 @@ Versão de produção (Entrega Final: implantação). Marcada como *major* porqu
 - **Integração com o GitHub no site**: seções Repositórios (lista ao vivo com filtro) e Implantação (versão em produção, último commit, status dos workflows, equipe). Dados gerados no build por `scripts/gerar_dados_github.py`, com a API pública como reserva.
 - **Testes automatizados** (`tests/test_site.py`): CSP, scripts e estilos inline, `noopener`, uso de `innerHTML`/`eval`, padrões de chaves, `.env`, links internos, âncoras, estrutura, JSON e versão.
 - `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `.github/dependabot.yml`.
-- Página 404, favicon, sitemap e aviso de privacidade.
+- Página 404, favicon, sitemap, imagem de prévia (`og:image`) e aviso de privacidade.
 - Slides da apresentação da implantação (`documentacao/slides/implantacao/`).
+- Card do próprio PortfolioHUB como projeto em destaque e competências por área.
+- Notas de Release por categoria (`.github/release.yml`).
+- Republicação automática do site ao publicar uma Release.
 
 ### Alterado
 
 - Content Security Policy restritiva em todas as páginas; CSS e JS dos slides movidos para arquivos (`slides.css`, `slides.js`) para dispensar `unsafe-inline`.
+- Fontes Inter e JetBrains Mono hospedadas no próprio site (licença OFL), sem requisições ao Google Fonts.
+- Lista de repositórios sem forks; texto da equipe fiel à situação atual.
+
+### Corrigido
+
+- Com o JavaScript desligado, as seções animadas ficavam invisíveis; agora só são ocultadas quando o JavaScript está ativo.
+- Botão do menu mobile com `aria-controls` e `aria-expanded`.
 - `CONTRIBUTING.md` com o fluxo protegido e como obter acesso.
 
 ### Segurança (configurações do repositório)

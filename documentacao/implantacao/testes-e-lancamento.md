@@ -29,7 +29,7 @@ Seção 5 da Entrega Final: finalização da integração, testes e preparação
 | ID | Teste | Ferramenta | Controle |
 |---|---|---|---|
 | T-01 | Toda página tem CSP restritiva (sem `unsafe-inline`/`unsafe-eval`) | `unittest` | SITE-02 |
-| T-02 | Nenhum script, `<style>` ou atributo `style=` inline | `unittest` | SITE-02 |
+| T-02 | Nenhum script, `<style>` ou atributo `style=` inline; nenhum CSS ou fonte de terceiros | `unittest` | SITE-02, SITE-05 |
 | T-03 | Links externos com `noopener` | `unittest` | SITE-06 |
 | T-04 | JavaScript sem `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `eval`, `new Function` | `unittest` | SITE-04 |
 | T-05 | Nenhum padrão de chave (Anthropic, GitHub, AWS, chave privada) em arquivo versionado | `unittest` | REP-03, SITE-07 |
@@ -50,7 +50,7 @@ Seção 5 da Entrega Final: finalização da integração, testes e preparação
 Rodar localmente:
 
 ```bash
-python -m unittest discover -s tests -v   # T-01 a T-12
+python -m unittest discover -s tests -v   # T-01 a T-12 (14 testes)
 npm ci && npm run test:html                # T-13
 for f in assets/js/*.js documentacao/slides/*.js; do node --check "$f"; done   # T-14
 ```
@@ -158,7 +158,7 @@ Qualquer item vermelho é No-Go: corrigir ou registrar a exceção com justifica
 
 | ID | Data | Ambiente | Resultado | Evidência |
 |---|---|---|---|---|
-| T-01 a T-12 | 24/10/2026 | Local (Python 3.12) | ✅ 13 testes OK | Saída acima |
+| T-01 a T-12 | 24/10/2026 | Local (Python 3.12) | ✅ 14 testes OK (13 na primeira execução; +1 após a revisão) | — |
 | Prova negativa | 24/10/2026 | Local | ✅ 5 falhas detectadas | Saída acima |
 | T-13 | 24/10/2026 | Local (html-validate 11.17.0) | ✅ após corrigir 8 botões sem `type` | — |
 | T-14 | 24/10/2026 | Local (Node) | ✅ | — |
