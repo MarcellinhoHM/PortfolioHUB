@@ -6,6 +6,6 @@
     "test:html": "html-validate index.html 404.html documentacao/slides/index.html documentacao/slides/implantacao/index.html"
   },
   "devDependencies": {
-    "html-validate": "11.17.0"
+    "html-validate": "11.21.0"
   }
 }
